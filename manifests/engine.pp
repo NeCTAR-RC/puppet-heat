@@ -116,4 +116,12 @@ class heat::engine (
     'DEFAULT/trusts_delegated_roles'       : value => $trusts_delegated_roles;
     'DEFAULT/deferred_auth_method'         : value => $deferred_auth_method;
   }
+
+  file {'/etc/heat/environment.d/default.yaml':
+    owner  => heat,
+    group  => heat,
+    source => 'puppet:///modules/heat/default.yaml',
+    notify => Service['heat-engine'],
+  }
+
 }
