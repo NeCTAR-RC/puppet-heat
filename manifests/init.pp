@@ -385,8 +385,7 @@ class heat(
     case $database_connection_real {
       /^mysql:\/\//: {
         $backend_package = false
-        require mysql::bindings
-        require mysql::bindings::python
+        require mysql::python
       }
       /^postgresql:\/\//: {
         $backend_package = 'python-psycopg2'
