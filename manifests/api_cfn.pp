@@ -119,4 +119,14 @@ class heat::api_cfn (
     }
   }
 
+  nagios::service {
+    'http_heat_cfn':
+      check_command => "http_port!${bind_port}";
+  }
+
+  nagios::nrpe::service {
+    'service_heat_api_cfn':
+      check_command => "/usr/lib/nagios/plugins/check_procs -c ${procs}:${procs} -u heat -a /usr/bin/heat-api-cfn";
+  }
+
 }
