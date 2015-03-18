@@ -167,4 +167,8 @@ class heat::engine (
     notify => Service['heat-engine'],
   }
 
+  nagios::nrpe::service {
+    'service_heat_engine':
+      check_command => "/usr/lib/nagios/plugins/check_procs -c ${::procs}:${::procs} -u heat -a /usr/bin/heat-engine";
+  }
 }

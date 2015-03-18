@@ -125,4 +125,13 @@ class heat::api_cloudwatch (
     }
   }
 
+  nagios::service {
+    'http_heat_cloudwatch':
+      check_command => "http_port!${bind_port}";
+  }
+
+  nagios::nrpe::service {
+    'service_heat_api_cloudwatch':
+      check_command => "/usr/lib/nagios/plugins/check_procs -c ${::procs}:${::procs} -u heat -a /usr/bin/heat-api-cloudwatch";
+  }
 }

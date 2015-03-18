@@ -122,4 +122,14 @@ class heat::api (
     }
   }
 
+  nagios::service {
+    'http_heat':
+      check_command => "http_port!${bind_port}";
+  }
+
+  nagios::nrpe::service {
+    'service_heat_api':
+      check_command => "/usr/lib/nagios/plugins/check_procs -c ${::procs}:${::procs} -u heat -a /usr/bin/heat-api";
+  }
+
 }
