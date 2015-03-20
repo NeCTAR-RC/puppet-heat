@@ -96,6 +96,8 @@
 #
 # [*keystone_ec2_uri*]
 #
+# [*memcached_servers*]
+#
 # ==== Various QPID options (Optional)
 #
 # [*qpid_hostname*]
@@ -198,6 +200,7 @@ class heat(
   $keystone_user               = 'heat',
   $keystone_tenant             = 'services',
   $keystone_password           = false,
+  $memcached_servers           = undef,
   $keystone_ec2_uri            = 'http://127.0.0.1:5000/v2.0/ec2tokens',
   $rpc_backend                 = 'heat.openstack.common.rpc.impl_kombu',
   $rabbit_host                 = '127.0.0.1',
@@ -454,6 +457,7 @@ class heat(
     'keystone_authtoken/admin_tenant_name' : value => $keystone_tenant;
     'keystone_authtoken/admin_user'        : value => $keystone_user;
     'keystone_authtoken/admin_password'    : value => $keystone_password, secret => true;
+    'keystone_authtoken/memcached_servers' : value => $memcached_servers;
   }
 
   # Log configuration
