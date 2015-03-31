@@ -21,6 +21,9 @@
 #   If set to boolean 'false', it will not log to any directory
 #   Defaults to '/var/log/heat'
 #
+# [*http_proxy*]
+#   (Optional) http_proxy to use for downloads
+#
 # [*rpc_backend*]
 #   (Optional) Use these options to configure the RabbitMQ message system.
 #   Defaults to 'heat.openstack.common.rpc.impl_kombu'
@@ -244,6 +247,7 @@ class heat(
   $keystone_port               = '35357',
   $keystone_protocol           = 'http',
   $instance_user               = undef,
+  $http_proxy                  = undef,
 ) {
 
   include ::heat::params
@@ -301,6 +305,10 @@ class heat(
   }
 
   Package['heat-common'] -> Heat_config<||>
+
+  if $http_proxy {
+    heat_config { 'DEFAULT/http_proxy': value => $http_proxy }
+  }
 
   if $rpc_backend == 'heat.openstack.common.rpc.impl_kombu' {
 
