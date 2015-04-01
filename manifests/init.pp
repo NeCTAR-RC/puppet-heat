@@ -298,6 +298,14 @@ class heat(
     mode  => '0640',
   }
 
+  file { '/etc/heat/policy.json':
+    owner   => 'heat',
+    group   => 'heat',
+    mode    => '0640',
+    content => template('heat/policy.json.erb'),
+    require => File['/etc/heat/'],
+  }
+
   package { 'heat-common':
     ensure => $package_ensure,
     name   => $::heat::params::common_package_name,
