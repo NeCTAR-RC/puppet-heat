@@ -300,6 +300,7 @@ class heat(
       'DEFAULT/rabbit_virtual_host'    : value => $rabbit_virtual_host;
       'DEFAULT/rabbit_use_ssl'         : value => $rabbit_use_ssl;
       'DEFAULT/amqp_durable_queues'    : value => $amqp_durable_queues;
+      'DEFAULT/rabbit_durable_queues'  : value => $amqp_durable_queues;
     }
 
     if $rabbit_use_ssl {
@@ -454,6 +455,10 @@ class heat(
     heat_config {
       'DEFAULT/use_syslog':           value => false;
     }
+  }
+  heat_config {
+    'DEFAULT/enable_stack_abandon':   value => true;
+    'DEFAULT/enable_stack_adopt':     value => true;
   }
 
 }
