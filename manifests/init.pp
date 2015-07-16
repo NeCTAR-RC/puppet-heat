@@ -79,6 +79,10 @@
 #   (Optional) Use durable queues in amqp.
 #   Defaults to false
 #
+# [*loadbalancer_template*]
+#   (Optional) Custom template for the built-in loadbalancer nested stack.
+#   Defaults to undef
+#
 # == keystone authentication options
 #
 # [*auth_uri*]
@@ -167,6 +171,7 @@ class heat(
   $keystone_user               = 'heat',
   $keystone_tenant             = 'services',
   $keystone_password           = false,
+  $loadbalancer_template       = undef,
   $memcached_servers           = undef,
   $keystone_ec2_uri            = 'http://127.0.0.1:5000/v2.0/ec2tokens',
   $rpc_backend                 = 'heat.openstack.common.rpc.impl_kombu',
@@ -379,6 +384,12 @@ class heat(
     'keystone_authtoken/admin_user'        : value => $keystone_user;
     'keystone_authtoken/admin_password'    : value => $keystone_password;
     'keystone_authtoken/memcached_servers' : value => $memcached_servers;
+  }
+
+  if $loadbalancer_template {
+    heat_config {
+    'DEFAULT/loadbalancer_template'        : value => $loadbalancer_template;
+    }
   }
 
   # Log configuration
