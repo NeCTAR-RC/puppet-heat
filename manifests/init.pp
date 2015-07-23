@@ -79,9 +79,13 @@
 #   (Optional) Use durable queues in amqp.
 #   Defaults to false
 #
+# [*loadbalancer_image_id*]
+#   (Optional) Image ID to be used by the loadbalancer template.
+#   Defaults to empty
+#
 # [*loadbalancer_template*]
-#   (Optional) Custom template for the built-in loadbalancer nested stack.
-#   Defaults to undef
+#   (Optional) if true, install the template lb.yaml
+#   Defaults to false
 #
 # == keystone authentication options
 #
@@ -171,7 +175,8 @@ class heat(
   $keystone_user               = 'heat',
   $keystone_tenant             = 'services',
   $keystone_password           = false,
-  $loadbalancer_template       = undef,
+  $loadbalancer_image_id       = '',
+  $loadbalancer_template       = false,
   $memcached_servers           = undef,
   $keystone_ec2_uri            = 'http://127.0.0.1:5000/v2.0/ec2tokens',
   $rpc_backend                 = 'heat.openstack.common.rpc.impl_kombu',
@@ -223,6 +228,9 @@ class heat(
   }
   if ($kombu_ssl_certfile and !$kombu_ssl_keyfile) or ($kombu_ssl_keyfile and !$kombu_ssl_certfile) {
     fail('The kombu_ssl_certfile and kombu_ssl_keyfile parameters must be used together')
+  }
+  if ($loadbalancer_image_id == '' and !$loadbalancer_template ) or ($loadbalancer_image_id != '' and !$loadbalancer_template) {
+    fail('The loadbalancer_template and loadbalancer_image_id parameters should be used together')
   }
   if $mysql_module {
     warning('The mysql_module parameter is deprecated. The latest 2.x mysql module will be used.')
