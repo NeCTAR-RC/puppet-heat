@@ -30,6 +30,13 @@
 #   (optional) URL of the Heat cloudwatch server
 #   Defaults to 'http://127.0.0.1:8003'
 #
+# [*loadbalancer_image_id*]
+#   (Optional) Image ID to be used by the loadbalancer template.
+#   If defined, heat is configured to use a custom template defined by
+#   lb.yaml.erb which references this image id. If false, no loadbalancer
+#   template is configured.
+#   Defaults to false.
+#
 # [*engine_life_check_timeout*]
 #   (optional) RPC timeout (in seconds) for the engine liveness check that is
 #   used for stack locking
@@ -61,6 +68,7 @@ class heat::engine (
   $heat_metadata_server_url      = 'http://127.0.0.1:8000',
   $heat_waitcondition_server_url = 'http://127.0.0.1:8000/v1/waitcondition',
   $heat_watch_server_url         = 'http://127.0.0.1:8003',
+  $loadbalancer_image_id         = false,
   $engine_life_check_timeout     = '2',
   $deferred_auth_method          = 'trusts',
   $trusts_delegated_roles        = ['heat_stack_owner'],  #DEPRECATED
@@ -115,6 +123,25 @@ class heat::engine (
     'DEFAULT/engine_life_check_timeout'    : value => $engine_life_check_timeout;
     'DEFAULT/trusts_delegated_roles'       : value => $trusts_delegated_roles;
     'DEFAULT/deferred_auth_method'         : value => $deferred_auth_method;
+  }
+
+  if $loadbalancer_image_id {
+    heat_config { 'DEFAULT/loadbalancer_template' :
+      value   => '/etc/heat/environment.d/lb.yaml',
+      require => File['/etc/heat/environment.d/lb.yaml'],
+    }
+    file {'/etc/heat/environment.d/lb.yaml':
+      owner   => heat,
+      group   => heat,
+      content => template('heat/lb.yaml.erb'),
+    }
+  } else {
+    heat_config { 'DEFAULT/loadbalancer_template' :
+      ensure => absent,
+    }
+    file {'/etc/heat/environment.d/lb.yaml':
+      ensure => absent,
+    }
   }
 
   file {'/etc/heat/environment.d/default.yaml':
