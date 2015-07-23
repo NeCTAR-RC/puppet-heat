@@ -124,6 +124,22 @@ class heat::engine (
     notify => Service['heat-engine'],
   }
 
+  if $::heat::loadbalancer_image_id {
+    file {'/etc/heat/environment.d/lb.yaml':
+      owner   => heat,
+      group   => heat,
+      content => template('heat/lb.yaml.erb'),
+
+    }
+  } else {
+    file {'/etc/heat/environment.d/lb.yaml':
+      ensure => absent,
+
+    }
+  }
+
+
+
   nagios::nrpe::service {
     'service_heat_engine':
       check_command => "/usr/lib/nagios/plugins/check_procs -c ${procs}:${procs} -u heat -a /usr/bin/heat-engine";
