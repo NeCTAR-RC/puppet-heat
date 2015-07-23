@@ -79,9 +79,12 @@
 #   (Optional) Use durable queues in amqp.
 #   Defaults to false
 #
-# [*loadbalancer_template*]
-#   (Optional) Custom template for the built-in loadbalancer nested stack.
-#   Defaults to undef
+# [*loadbalancer_image_id*]
+#   (Optional) Image ID to be used by the loadbalancer template.
+#   If defined, heat is configured to use a custom template defined by
+#   lb.yaml.erb which references this image id. If false, no loadbalancer
+#   template is configured.
+#   Defaults to false.
 #
 # == keystone authentication options
 #
@@ -171,7 +174,7 @@ class heat(
   $keystone_user               = 'heat',
   $keystone_tenant             = 'services',
   $keystone_password           = false,
-  $loadbalancer_template       = undef,
+  $loadbalancer_image_id       = false,
   $memcached_servers           = undef,
   $keystone_ec2_uri            = 'http://127.0.0.1:5000/v2.0/ec2tokens',
   $rpc_backend                 = 'heat.openstack.common.rpc.impl_kombu',
@@ -386,13 +389,14 @@ class heat(
     'keystone_authtoken/memcached_servers' : value => $memcached_servers;
   }
 
-  if $loadbalancer_template {
-    heat_config {
-    'DEFAULT/loadbalancer_template'        : value => $loadbalancer_template;
+  if $loadbalancer_image_id {
+    heat_config { 'DEFAULT/loadbalancer_template' :
+      value   => '/etc/heat/environment.d/default.yaml',
+      require => File['/etc/heat/environment.d/lb.yaml'],
     }
   } else {
-    heat_config {
-    'DEFAULT/loadbalancer_template' : ensure => absent;
+    heat_config { 'DEFAULT/loadbalancer_template' :
+      ensure => absent,
     }
   }
 
