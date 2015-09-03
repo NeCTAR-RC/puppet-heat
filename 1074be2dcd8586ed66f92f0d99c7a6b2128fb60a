@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_c3a112ab",
+        "filename": "manifests/engine.pp",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000105
+      },
+      "writtenOn": "2015-09-03T03:19:14Z",
+      "side": 1,
+      "message": "no we don\u0027t, removed.",
+      "parentUuid": "9a245df4_0327aa65",
+      "range": {
+        "startLine": 132,
+        "startChar": 6,
+        "endLine": 132,
+        "endChar": 40
+      },
+      "revId": "1074be2dcd8586ed66f92f0d99c7a6b2128fb60a",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_e32b762e",
         "filename": "manifests/engine.pp",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2015-09-03T02:10:56Z",
       "side": 1,
       "message": "Do we need to bounce the service here?",
+      "range": {
+        "startLine": 137,
+        "startChar": 6,
+        "endLine": 137,
+        "endChar": 39
+      },
+      "revId": "1074be2dcd8586ed66f92f0d99c7a6b2128fb60a",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_a3a69ebf",
+        "filename": "manifests/engine.pp",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000105
+      },
+      "writtenOn": "2015-09-03T03:19:14Z",
+      "side": 1,
+      "message": "no we don\u0027t, removed.",
+      "parentUuid": "9a245df4_e32b762e",
       "range": {
         "startLine": 137,
         "startChar": 6,
