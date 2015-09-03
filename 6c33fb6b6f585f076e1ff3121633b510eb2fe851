@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_23ff4e36",
+        "filename": "templates/lb.yaml.erb",
+        "patchSetId": 7
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000105
+      },
+      "writtenOn": "2015-09-03T23:51:21Z",
+      "side": 1,
+      "message": "not sure this will be found now we have moved where it is set.",
+      "revId": "6c33fb6b6f585f076e1ff3121633b510eb2fe851",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": false
+    }
+  ]
+}
