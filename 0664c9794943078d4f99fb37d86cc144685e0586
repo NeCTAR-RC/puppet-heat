@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_463a50ce",
+        "filename": "manifests/engine.pp",
+        "patchSetId": 8
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2015-09-04T04:28:26Z",
+      "side": 1,
+      "message": "should be lb",
+      "range": {
+        "startLine": 130,
+        "startChar": 42,
+        "endLine": 130,
+        "endChar": 49
+      },
+      "revId": "0664c9794943078d4f99fb37d86cc144685e0586",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": false
+    }
+  ]
+}
