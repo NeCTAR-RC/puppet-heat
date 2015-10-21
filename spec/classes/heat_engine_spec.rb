@@ -4,6 +4,7 @@ describe 'heat::engine' do
 
   let :default_params do
     { :enabled                       => true,
+      :workers                       => '0',
       :manage_service                => true,
       :heat_stack_user_role          => 'heat_stack_user',
       :heat_metadata_server_url      => 'http://127.0.0.1:8000',
@@ -24,6 +25,7 @@ describe 'heat::engine' do
       { :auth_encryption_key           => '1234567890AZERTYUIOPMLKJHGFDSQ12' },
       { :auth_encryption_key           => '0234567890AZERTYUIOPMLKJHGFDSQ24',
         :enabled                       => false,
+        :workers                       => '0',
         :heat_stack_user_role          => 'heat_stack_user',
         :heat_metadata_server_url      => 'http://127.0.0.1:8000',
         :heat_waitcondition_server_url => 'http://127.0.0.1:8000/v1/waitcondition',
@@ -65,6 +67,7 @@ describe 'heat::engine' do
         :subscribe  => 'Exec[heat-dbsync]'
       ) }
 
+      it { is_expected.to contain_heat_config('DEFAULT/engine_workers').with_value( expected_params[:workers] ) }
       it { is_expected.to contain_heat_config('DEFAULT/auth_encryption_key').with_value( expected_params[:auth_encryption_key] ) }
       it { is_expected.to contain_heat_config('DEFAULT/heat_stack_user_role').with_value( expected_params[:heat_stack_user_role] ) }
       it { is_expected.to contain_heat_config('DEFAULT/heat_metadata_server_url').with_value( expected_params[:heat_metadata_server_url] ) }
