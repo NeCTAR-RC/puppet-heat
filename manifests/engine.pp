@@ -15,10 +15,6 @@
 #   (optional) Should the service be enabled.
 #   Defaults to 'true'
 #
-# [*workers*]
-#   (Optional) The number of workers to spawn
-#   Defaults to '0'.
-#
 # [*manage_service*]
 #   (optional) Whether the service should be managed by Puppet.
 #   Defaults to true.
@@ -89,7 +85,6 @@ class heat::engine (
   $package_ensure                      = 'present',
   $manage_service                      = true,
   $enabled                             = true,
-  $workers                             = '0',
   $heat_stack_user_role                = 'heat_stack_user',
   $heat_metadata_server_url            = 'http://127.0.0.1:8000',
   $heat_waitcondition_server_url       = 'http://127.0.0.1:8000/v1/waitcondition',
@@ -154,7 +149,6 @@ class heat::engine (
 
   heat_config {
     'DEFAULT/auth_encryption_key'                 : value => $auth_encryption_key;
-    'DEFAULT/engine_workers'                      : value => $workers;
     'DEFAULT/heat_stack_user_role'                : value => $heat_stack_user_role;
     'DEFAULT/heat_metadata_server_url'            : value => $heat_metadata_server_url;
     'DEFAULT/heat_waitcondition_server_url'       : value => $heat_waitcondition_server_url;

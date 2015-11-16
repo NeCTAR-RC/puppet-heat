@@ -27,7 +27,7 @@
 #   Defaults to '8003'.
 #
 # [*workers*]
-#   (Optional) The number of workers to spawn
+#   (Optional) The port on which the server will listen.
 #   Defaults to '0'.
 #
 # [*use_ssl*]
