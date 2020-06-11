@@ -65,12 +65,28 @@
 #     The log file name for the virtualhost.
 #     Optional. Defaults to false.
 #
+#   [*access_log_pipe*]
+#     Specifies a pipe where Apache sends access logs for the virtualhost.
+#     Optional. Defaults to false.
+#
+#   [*access_log_syslog*]
+#     Sends the virtualhost access log messages to syslog.
+#     Optional. Defaults to false.
+#
 #   [*access_log_format*]
 #     The log format for the virtualhost.
 #     Optional. Defaults to false.
 #
 #   [*error_log_file*]
 #     The error log file name for the virtualhost.
+#     Optional. Defaults to undef.
+#
+#   [*error_log_pipe*]
+#     Specifies a pipe where Apache sends error logs for the virtualhost.
+#     Optional. Defaults to undef.
+#
+#   [*error_log_syslog*]
+#     Sends the virtualhost error log messages to syslog.
 #     Optional. Defaults to undef.
 #
 #   [*custom_wsgi_process_options*]
@@ -116,8 +132,12 @@ class heat::wsgi::apache_api (
   $threads                     = 1,
   $priority                    = '10',
   $access_log_file             = false,
+  $access_log_pipe             = false,
+  $access_log_syslog           = false,
   $access_log_format           = false,
   $error_log_file              = undef,
+  $error_log_pipe              = undef,
+  $error_log_syslog            = undef,
   $custom_wsgi_process_options = {},
   $wsgi_process_display_name   = undef,
   $vhost_custom_fragment       = undef,
@@ -140,8 +160,12 @@ class heat::wsgi::apache_api (
     custom_wsgi_process_options => $custom_wsgi_process_options,
     priority                    => $priority,
     access_log_file             => $access_log_file,
+    access_log_pipe             => $access_log_pipe,
+    access_log_syslog           => $access_log_syslog,
     access_log_format           => $access_log_format,
     error_log_file              => $error_log_file,
+    error_log_pipe              => $error_log_pipe,
+    error_log_syslog            => $error_log_syslog,
     wsgi_process_display_name   => $wsgi_process_display_name,
     vhost_custom_fragment       => $vhost_custom_fragment,
   }

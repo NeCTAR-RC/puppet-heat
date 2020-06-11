@@ -23,6 +23,8 @@ describe 'heat::wsgi::apache_api_cfn' do
         :priority                    => 10,
         :custom_wsgi_process_options => {},
         :access_log_file             => false,
+        :access_log_pipe             => false,
+        :access_log_syslog           => false,
         :access_log_format           => false,)
       }
     end
